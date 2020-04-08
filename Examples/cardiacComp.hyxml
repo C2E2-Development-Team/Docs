@@ -1,0 +1,50 @@
+<hyxml type="Model">
+    <automaton name="default_automaton">
+        <!-- specify variables -->
+        <variable name="t" scope="LOCAL_DATA" type="Real" />
+        <variable name="u" scope="LOCAL_DATA" type="Real" />
+        <variable name="v" scope="LOCAL_DATA" type="Real" />
+
+        <!-- specify modes -->
+        <mode id="0" initial="True" name="stimOn_cardiac">
+            <dai equation="t_dot= 1" />
+            <dai equation="u_dot= 1 - pow(u,3) - 0.9*pow(u,2) - 0.9*u - v" />
+            <dai equation="v_dot= u - 2*v" />
+            <!-- specify invariants -->
+            <invariant equation="t&lt;5" />
+        </mode>
+        <mode id="1" initial="False" name="stimOff_cardiac">
+            <dai equation="t_dot= 1" />
+            <dai equation="u_dot= 0 - pow(u,3) - 0.9*pow(u,2) - 0.9*u - v" />
+            <dai equation="v_dot= u - 2*v" />
+            <!-- specify invariants -->
+            <invariant equation="t&lt;20" />
+        </mode>
+
+        <!-- specify invariants -->
+        <transition destination="1" id="0" source="0">
+            <guard equation="t&gt;=5" />
+            <action equation="t = 0" />
+        </transition>
+        <transition destination="0" id="1" source="1">
+            <guard equation="t&gt;=20" />
+            <action equation="t = 0" />
+        </transition>
+    </automaton>
+    <composition automata="default_automaton"/>
+
+    <!-- setup the initial set and unsafe set of the constraints -->
+    <property   
+        initialSet="stimOn_cardiac:
+            u==0 &amp;&amp; 
+            v==0 &amp;&amp; 
+            t==0" name="P1" 
+        type="Safety" 
+        unsafeSet="u&gt;=2.5">
+        <!-- specify the parameters for computation -->
+        <parameters 
+            kvalue="2000.0"         
+            timehorizon="40.0" 
+            timestep="0.01" />
+    </property>
+</hyxml>

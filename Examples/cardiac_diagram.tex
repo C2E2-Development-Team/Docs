@@ -1,0 +1,70 @@
+\tikzset{
+    state/.style={
+           rectangle,
+           rounded corners,
+           draw=black, very thick,
+           minimum height=2em,
+           inner sep=2pt,
+           text centered,
+           },
+}
+
+\begin{tikzpicture}[->,>=stealth']
+
+ % Position of QUERY 
+ % Use previously defined 'state' as layout (see above)
+ % use tabular for content to get columns/rows
+ % parbox to limit width of the listing
+ \node[state] (StimOn) 
+ {\begin{tabular}{l}
+  \textbf{Stim On}\\
+  \parbox{5.5cm}{\begin{itemize}
+   \item Flow
+   \[
+\left\{
+\begin{array}{lcl}
+ \dot{u}  =  1-u^3-0.9y^2-0.9u-v \\
+ \dot{v}  =  u-2v\\
+ \dot{t}  =  1 \\
+\end{array}
+\right.
+\]
+   \item Invariant
+    \subitem $t<5$
+   \end{itemize}}
+ \end{tabular}};
+  
+ % State: ACK with different content
+ \node[state,    	% layout (defined above)
+  right of=StimOn, 	% Position is to the right of QUERY
+  node distance=10cm, 	% distance to QUERY
+  anchor=center] (StimOff) 	% posistion relative to the center of the 'box'
+ {%
+ \begin{tabular}{l} 	% content
+  \textbf{StimOff}\\
+  \parbox{5.5cm}{\begin{itemize}
+   \item Flow
+      \[
+        \left\{
+        \begin{array}{lcl}
+        \dot{u}  =  -u^3-0.9y^2-0.9u-v \\
+        \dot{v}  =  u-2v \\
+        \dot{t}  =  1
+        \\
+        \end{array}
+        \right.
+      \]
+   \item Invariant    
+   \subitem $t<5$
+   \end{itemize}}
+ \end{tabular}
+ };
+ 
+
+
+ % draw the paths and and print some Text below/above the graph
+ \path (StimOn) edge[bend left=20]  node[anchor=south,above]{Guard: t$\geq$5} node[anchor=south,below]{Action: t=0}(StimOff);
+ 
+ \path (StimOff) edge[bend left=20] node[anchor=north,above]{Guard: t$\geq$20} node[anchor=north,below]{Action: t=0}(StimOn);
+
+\end{tikzpicture}
