@@ -161,7 +161,7 @@
 
 %%%%
 
-\title{C2E2 User's Guide\\ \large{Ver 2.0 \ \ December 2018}} % Title of the book
+\title{C2E2 User's Guide\\ \large{Ver 2.1 \ \ December 2020}} % Title of the book
 \author{\href{http://publish.illinois.edu/c2e2-tool/}{C2E2 Team} \\ \href{mailto:c2e2help@gmail.com}{c2e2help@gmail.com}}
 % % Author
 
@@ -226,19 +226,25 @@ Copyright \copyright\ \the\year\ \thanklessauthor
 
 \chapter{Acknowledgements}
 \label{sec:ack}
+
+\paragraph{Authors and Contributors.}
 Lucas Brown $\circ$
+Zongnan Bao $\circ$
 Chuchu Fan $\circ$
 Parasara Sridhar Duggirala $\circ$
 Suket Karnawat $\circ$
+Yangge Li $\circ$
 Yu Meng $\circ$
 Sayan Mitra $\circ$
 Matthew Potok $\circ$
 Bolun Qi $\circ$
-Mahesh Viswanathan $\circ$
+Mahesh Viswanathan 
 %Zhenqi Huang $\circ$
 %Taylor Johnson $\circ$ 
 %Karthikeyan Manamcheri Sukumar $\circ$
 %Le Wang $\circ$
+
+\paragraph{Supported by}
 Department of Computer Science and Department of Electrical and Computer Engineering at the University of Illinois at Urbana Champaign $\circ$
 Coordinated Science Laboratory $\circ$
 The National Science Foundation $\circ$ 
@@ -251,20 +257,23 @@ Air Force's Office of Scientific Research.
 $\ccee$ is a tool for verifying time-bounded invariant properties of hybrid automata models. It supports models with nonlinear dynamics, discrete transitions, and sets of initial states. The invariant properties have to be specified by conjunctions of linear inequalities. Internally, $\ccee$ implements the simulation-based verification algorithms described in the sequence of publications~\citet{fan2016automatic,ChuchuATVA,DMV13,DuggiralaWMVM14,SM:HSCC2011}. The new version of $\ccee$ uses an on-the-fly discrepancy computation algorithm \citet{ChuchuATVA} to automatically generate neighborhoods that conservatively contain all the behaviors of neighboring trajectories. In a nutshell, $\ccee$ parses and transforms the hybrid automata model to a mathematical representation, it generates faithful numerical simulations of this model using a validated numerical simulator, it then bloats these simulations using on-the-fly discrepancy computation to construct over-approximations of the bounded time reachable set, and it iteratively refines these over-approximations to prove the invariant or announce candidate counterexamples.
 %In a nutshell, it parses and transforms the  Stateflow\textsuperscript{TM} model to a mathematical representation, it generates faithful numerical simulations of this model using a validated numerical simulator, it then bloats these simulations using user-provided annotations  to construct over-approximations of the bounded time reachable set, and it iteratively refines these over-approximations to prove the invariant or announce candidate counterexamples. 
 
-$\ccee$ has a GUI for loading and editing of hybrid automata models and properties in an internal HyXML format, launching the verifier, and for plotting 2D sections of the reach set computed by the verifier. 
+$\ccee$ has a GUI for loading and editing of hybrid automata models and properties in an internal $\hyxml$ format, launching the verifier, and for plotting 2D sections of the reach set computed by the verifier. 
 
 Please contact us at \href{mailto:c2e2help@gmail.com}{c2e2help@gmail.com} and let us know about your experiences using $\ccee$. 
 Previous versions of $\ccee$ allowed for the editing of Stateflow\textsuperscript{TM} models and readily supported numerical simulators like {\sf VNODE-LP}~\citet{vnode2006}. Some of these features are getting depreciated because of numerical instability, lack of support, etc. Let us know if you are interested in these features. 
 
 \chapter{Installation}
-To install C2E2, you may either download and run the installation files, or download and virtual machine with the most recent version of C2E2 installed.
+\label{chap:install}
+%Example .hyxml files are included and located in the \texttt{examples} folder. 
 
-Example .hyxml files are included and located in the \texttt{examples} folder. 
-\section{Download and install latest C2E2}
-Ubuntu 16.04, 64-bit is currently the only supported operating system. If you are using a different OS, we recommend that you download the virtual machine instead.
+\section{Supported platforms}
+$\ccee$ has been tested on different versions of Ubuntu, including  Ubuntu 16.04, 64-bit. With a little extra work, 
+
+If you are using a different OS, we recommend that you download the virtual machine instead.
+
+\section{Download and install $\ccee$}
 \begin{itemize}
-\item 
-Download the latest distribution of $\ccee$ distribution from:
+\item Download the latest distribution of $\ccee$ distribution from:
 \url{http://publish.illinois.edu/c2e2-tool/download/}.
 \item Unzip the files in a local directory, say \texttt{\textasciitilde/c2e2/}. \linebreak
 \texttt{tar -xvzf c2e2-2.0.0.tar.gz -C \textasciitilde/c2e2/}
@@ -274,15 +283,16 @@ Download the latest distribution of $\ccee$ distribution from:
 \item Launch the GUI for loading, editing, and verifying models. \linebreak
 \texttt{./runc2e2}
 \item If any of the above steps fail then you can try to install the packaged listed in the file \texttt{installRequirements} separately. 
+\end{itemize}
 %The list of all the needed packages are given in Appendix~\ref{app:packs}. 
 
-\section{Install the Virtual Machine}
-The virtual machine can be download from \url{http://publish.illinois.edu/c2e2-tool/download/}. Oracle VM VirtualBox was used to create and test the Open Virtual Appliance (.ova). 
-% \item If any of the above steps fail, you have the second option to download a virtual machine running 64 bit Ubuntu 16.04 (password: $\ccee$) that has the newest version of $\ccee$ already installed. Oracle VM VirtualBox was used to create the Open Virtual Appliance (.ova), though it should work properly on other virtualization applications that can load .ova files.
-% \item Examples in form of \texttt{.hyxml} files are in included in the  \texttt{Examples} folder. 
-% \item Errors and warnings are logged in \texttt{/work-dir/warnings}
-%Check out the updates on our website\footnote{https://publish.illinois.edu/$\ccee$-tool/} for further information to support Matlab Stateflow model (\texttt{.mdl}) files.
-\end{itemize}
+%\section{Install the Virtual Machine}
+%The virtual machine can be download from \url{http://publish.illinois.edu/c2e2-tool/download/}. Oracle VM VirtualBox was used to create and test the Open Virtual Appliance (.ova). 
+%% \item If any of the above steps fail, you have the second option to download a virtual machine running 64 bit Ubuntu 16.04 (password: $\ccee$) that has the newest version of $\ccee$ already installed. Oracle VM VirtualBox was used to create the Open Virtual Appliance (.ova), though it should work properly on other virtualization applications that can load .ova files.
+%% \item Examples in form of \texttt{.hyxml} files are in included in the  \texttt{Examples} folder. 
+%% \item Errors and warnings are logged in \texttt{/work-dir/warnings}
+%%Check out the updates on our website\footnote{https://publish.illinois.edu/$\ccee$-tool/} for further information to support Matlab Stateflow model (\texttt{.mdl}) files.
+%\end{itemize}
 
 % \begin{itemize}
 % \item $\ccee$ is already installed in the virtual machine image for the Artifact Evaluation.
@@ -290,7 +300,8 @@ The virtual machine can be download from \url{http://publish.illinois.edu/c2e2-t
 % \item {\bf Disclaimer:} this artifact evaluation submission (the \texttt{.ova} file) is generated using VM Workstation Player and might have some issues with VirtualBox.
 % \end{itemize}
 
-% $\ccee$ can also be installed on Mac. Instead of using the installation scripts, the packages will have to be manually installed with the help of brew (\url{http://brew.sh/}) and pip. If you do not already have brew, install it as directed by the website.
+% $\ccee$ can also be installed on Mac.
+% Instead of using the installation scripts, the packages will have to be manually installed with the help of brew (\url{http://brew.sh/}) and pip. If you do not already have brew, install it as directed by the website.
 % \begin{itemize}
 % \item Using "brew install <package-name>", install python, gmp, ppl, pygtk, gnuplot, boost, swig.
 % \item Using "pip install <package-name>", install psutil, sympy, lxml. If lxml fails install command line developer tools by running "xcode-select --install" and then try again.
@@ -301,18 +312,25 @@ The virtual machine can be download from \url{http://publish.illinois.edu/c2e2-t
 % \end{itemize}
 
 
+\section{Older Versions}
+Earlier versions of $\ccee$ are archived at:
+\url{http://publish.illinois.edu/c2e2-tool/download/}
+Tar-zipped source files and virtual machines are available. From version 2.1 onward the source files are made available from github.
 
 
 
-\chapter{Key Improvements in Version 2.0}
-One of our main focuses for $\ccee$ version 2.0 was to improve the usability of our software. Previously, editing models had to be done in the \texttt{.hyxml} files outside of $\ccee$. To fix this, we made two significant updates to our GUI:
+\chapter{Key Improvements in Version 2.1}
+
+Version 2.1 of $\ccee$ is the first version to be released as open source software. There are several other important bug fixes and a more expanded support for command-line usage.
+
+$\ccee$ version 2.0 improved the usability significantly. Previously, editing $\hyxml$ models had to be done using an external text editor outside of $\ccee$. This prolonged the editing-parsing-debugging cycle. To fix this, we made two significant updates to our GUI:
 \label{version}
 \begin{itemize}
 \item Models are now editable directly from the GUI on the \emph{Model} tab.
-\item The new \emph{Editor} tab allows you to edit the HyXML directly without closing $\ccee$
+\item The new \emph{Editor} tab allows you to edit the $\hyxml$ directly without closing $\ccee$
 \end{itemize}
 
-In addition, the \emph{Plot} tab has been updated to improve usability and flexibility:
+The \emph{Plot} tab has been updated to improve usability and flexibility:
 \begin{itemize}
 \item The plotter now creates an interactive HTML.
 \item Any data file generated by $\ccee$ can be loaded into the plotter at any time. 
@@ -337,7 +355,7 @@ In the $\ccee$ folder, type the command \texttt{./run$\ccee$} to launch $\ccee$ 
 Upon opening the file , the $\ccee$ window should look similar to Figure~\ref{fig:parsetree}. The left hand side of this window is the hybrid automaton \emph{model tree} and the right hand side is the \emph{requirements sidebar}. 
 
 \section{Model Tree}
-When a model is opened, the HyXML is parsed and the result is displayed in the expandable \emph{model tree}. Automata are at the base, followed by Variables, Modes, and Transitions. Modes can further be expanded to display Flows and Invariants. Every item on the tree can be expanded to view details by clicking on the arrow to the left.
+When a model is opened, the $\hyxml$ is parsed and the result is displayed in the expandable \emph{model tree}. Automata are at the base, followed by Variables, Modes, and Transitions. Modes can further be expanded to display Flows and Invariants. Every item on the tree can be expanded to view details by clicking on the arrow to the left.
 As you can see, our example in Figure~\ref{fig:parsetree} has five variables \emph{sx}, \emph{vx}, \emph{ax}, \emph{sy}, \emph{vy} and \emph{omega}. In addition, we have seven separate modes with six transitions between them. 
 
 
@@ -434,7 +452,8 @@ next to the textboxes and you will be able to save the property. Otherwise there
 Once the property is added the name of the property appears in the property pane. 
 You may add several properties in the same way. 
 You may also make copies of existing properties to save yourself some typing and edit them.
-The added properties can be saved with the model. See section~\ref{sec:loadsave}.
+The added properties can be saved with the model. 
+%See section~\ref{sec:loadsave}.
 
 \section{Verifying}
 \label{sec:verify}
@@ -483,7 +502,7 @@ $\ccee$ supports user defined refinement strategy (see Section ~\ref{sec:open}).
 \subsection{Change Verified Properties}
 Once a property is verified the status of the property will change to \texttt{Verified}, and the result \texttt{Safe/Unsafe/Unknown} will appear next to it. $\ccee$ will also create a new plot on the \emph{Plot Tab} for each verified property with the name $\langle$\texttt{property name}$\rangle$ \texttt{plot} (see Section~\ref{sec:plots}).  Once the result has shown up, if you change any of the parameters associated with the property, say the initial set or unsafe set, then the status of the property will change to \texttt{Verified*}. This (*) indicates that the property and parameters verified is outdated and you can launch the verifier again.
 
-\chapter{Model (HyXML) Creation and Editing}
+\chapter{Model ($\hyxml$) Creation and Editing}
 \label{editor}
 
 
@@ -528,7 +547,7 @@ Modes are added, edited, and deleted through the \emph{Mode} dialog box. The dia
   \label{figure:modes_dialog}
 \end{marginfigure}
 When adding modes, if you have more than one automaton in your model, one of the automata must be selected - this can be done by right-clicking within the correct automaton, or by having anything in the correct automaton selected when navigating through the menu bar. When editing or deleting modes, the correct mode must be selected. \\
-To set the mode as the initial mode, make sure the corresponding box is selected. add a new Flow or Invariant, click "Add Row" below the appropriate heading. To delete a Flow or Invariant, clear out the equation and leave the filed blank when confirming the dialog. As you can see in Figure~\ref{figure:modes_dialog}, the ID field is disabled. IDs are used internally and do not need to be edited by the user - they are displayed because they can be set when editing the HyXML directly. 
+To set the mode as the initial mode, make sure the corresponding box is selected. add a new Flow or Invariant, click "Add Row" below the appropriate heading. To delete a Flow or Invariant, clear out the equation and leave the filed blank when confirming the dialog. As you can see in Figure~\ref{figure:modes_dialog}, the ID field is disabled. IDs are used internally and do not need to be edited by the user - they are displayed because they can be set when editing the $\hyxml$ directly. 
 
 
 
@@ -543,8 +562,8 @@ Transitions are added, edited, and deleted through the \emph{Transition} dialog 
 When adding transition, if you have more than one automaton in your model, one of the automata must be selected - this can be done by right-clicking within the correct automaton, or by having anything in the correct automaton selected when navigating through the menu bar. When editing or deleting transitions, the correct transition must be selected. \\
 Transitions do not have names, but rather are defined by their source and destination modes. The source and destination are set by the drop-down menus, which contain all of the modes currently in the automaton. Currently, $\ccee$ supports a singe guard per transition, so if you to include multiple guards, you need to create multiple transitions. Multiple actions are support, and they can be added by clicking the \emph{Add Row} button. 
 
-\section{HyXML Format}
-In this section, we'll review the basics of the HyXML file format. HyXMML files can be edited directly in $\ccee$ on the \emph{Editor} tab.
+\section{$\hyxml$ Format}
+In this section, we'll review the basics of the $\hyxml$ file format. $\hyxml$ files can be edited directly in $\ccee$ on the \emph{Editor} tab.
 
 \begin{figure}[h!]
 \centerline{\includegraphics[scale=.22,keepaspectratio=true]{ManualImages/C2E2_version2.0/editor-tab.png}}
@@ -581,7 +600,7 @@ After adding the opening \texttt{mode} tag, flows and invariants need to be adde
 
 \subsection{Transitions}
 
-Transitions are similar to modes in the HyXML. First, a \texttt{transition} element must be added. Guards and actions are then added with the \texttt{guard} and \texttt{action} elements, respectively. The \texttt{transition} element has three attributes, \texttt{source}, \texttt{destination}, and \texttt{id}. The \texttt{guard} and \texttt{action} element both have the same single attribute, \texttt{equation}.\\
+Transitions are similar to modes in the $\hyxml$. First, a \texttt{transition} element must be added. Guards and actions are then added with the \texttt{guard} and \texttt{action} elements, respectively. The \texttt{transition} element has three attributes, \texttt{source}, \texttt{destination}, and \texttt{id}. The \texttt{guard} and \texttt{action} element both have the same single attribute, \texttt{equation}.\\
 \vspace{3mm}
 \texttt{<transition source="0" destination="1" id="1"}\\
 \texttt{  <guard equation="sx + 10 \&gt; = 0">}\\
@@ -595,7 +614,7 @@ The input  a .hyxml file generally contains
 \begin{inparaenum}[(i)]
 \item A list of {\em component hybrid automata} $\A_1, \ldots, \A_k$,
 \item the definition of (one or more) {\em composed hybrid automaton} $\A$,
-\item a list of {\em safety requirements} (See Section~\ref{}).
+\item a list of {\em safety requirements} (See Section~\ref{sec:properties}).
 \end{inparaenum}
 %
 The {$\ccee$} workflow has the following steps: 
@@ -606,10 +625,10 @@ The component automata $\A_1, \ldots, \A_k$ are  {\em composed\/} according to t
 The automaton model $\A$ is parsed. This generates internal files used for simulation and verification. 
 \item Once parsed successfully, $\A$ can be either simulated or verified against the requirements. 
 \item Simulations draw random initial states and generate simulation traces and checks for safety of those traces.
-\item Verification uses the algorithm presented in~\citet{c2e2-tacas,c2e2cav} to check the safety property of the give model.
+\item Verification uses the algorithm presented in~\citet{c2e2:TACAS15,ChuchuATVA} to check the safety property of the give model.
 \end{inparaenum}
 In the rest of this chapter, we mention some of the key aspects of these four steps.
-For details on the mathematical model used here and the algorithms, we refer the reader to~\citet{DuggiralaWMVM14,c2e2}.
+For details on the mathematical model used here and the algorithms, we refer the reader to~\citet{DuggiralaWMVM14,c2e2:TACAS15}.
 
 \section{Composing}
 \label{sec:comp}
@@ -618,7 +637,7 @@ It convenient to define a complex model in terms of its components. The composit
 A hybrid automaton $\A$ in $\ccee$ is defined by the following following: 
 \begin{enumerate}[(i)]
 \item $L$: A finite set of {\em modes} or {\em locations}.
-\item $X,U,Y$: Finite pair-wise disjoint sets of {\em state (local), input}, and {\em output variables}. State variables are called {\texttt LOCAL} in \hyxml.
+\item $X,U,Y$: Finite pair-wise disjoint sets of {\em state (local), input}, and {\em output variables}. State variables are called {\texttt LOCAL} in $\hyxml$.
 We will denote the  set of valuations for these variables by $\val{X}, \val{Y}, \val{U},$ etc.
 %
 %
@@ -635,7 +654,7 @@ For the composition of a pair of hybrid automata $\A_1$ and $\A_2$ to be well-de
 \end{itemize}
 In the current implementation of $\ccee$, $\A_1$ and $\A_2$ can only interact through shared variables, and not through shared transitions.
 
-For a pair of compatible automata $\A_1$ and $\A_2$ the {\sf Compose\/} operation of $\ccee$, constructs the composed automaton $\A$ (as defined below). Once this composed model is saved, a new \hyxml file with the composed automaton is saved.
+For a pair of compatible automata $\A_1$ and $\A_2$ the {\sf Compose\/} operation of $\ccee$, constructs the composed automaton $\A$ (as defined below). Once this composed model is saved, a new $\hyxml$ file with the composed automaton is saved.
 
 %as defined in~\cite{TIOAmon,Mitra07PhD}:
 \begin{enumerate}[(i)]
@@ -665,7 +684,7 @@ The differential equations for each mode of $\A$ are derived from those of the c
 \section{Parsing}
 
 Before any simulation or verification can happen, the system must first be parsed. When parsing, we perform a variety of checks to make sure the system is capable of being simulated and verified. 
-In the following sections we enumerate these checks (see Section~\ref{sec:editing} for details about the HyXML format).
+In the following sections we enumerate these checks (see Section~\ref{sec:editing} for details about the $\hyxml$ format).
 
 
     \subsection{Variables}
@@ -678,7 +697,7 @@ In the following sections we enumerate these checks (see Section~\ref{sec:editin
             \item Every input variable must have a matching output variable in a different automaton
         \end{itemize}
     \subsection{Mode}
-        Mode names and mode IDs must be unique within an automaton. Note that mode IDs can only be changed through editing the HyXML directly. 
+        Mode names and mode IDs must be unique within an automaton. Note that mode IDs can only be changed through editing the $\hyxml$ directly. 
         \subsection{Flows}
             \begin{itemize}
                 \item Expressions must be standard mathematical expressions and use standard mathematical operators
@@ -703,9 +722,9 @@ In the following sections we enumerate these checks (see Section~\ref{sec:editin
             \end{itemize}
 
 
-\sayan{Compatibility checks. This happens here or in compose?}
+%\sayan{Compatibility checks. This happens here or in compose?}
 
-List of error messages and their interpretations.
+%List of error messages and their interpretations.
 
 
 \section{Simulation}\label{sec:simulation}
@@ -718,7 +737,7 @@ Other validated numerical simulators like {\sf VNODE-LP}~\citet{vnode2006} and {
 
 Roughly, the simulation procedure works as follows.
 A sequence of initial states are drawn randomly from the specified starting set. 
-From each of these initial states, a simulation in the current mode is generated using the C++ simulator function. This function is compiled when the HyXML file is parsed. 
+From each of these initial states, a simulation in the current mode is generated using the C++ simulator function. This function is compiled when the $\hyxml$ file is parsed. 
 Once the simulation in the current mode is computed, the result is  checked to see if any guards are hit.
 If any of the guards are hit, the simulation is truncated, the initial state in the next mode is computed using the reset function, and the simulation is continued in the new mode for the remaining time. 
 If none of the guards are hit, the simulation is complete.
@@ -742,7 +761,7 @@ For linear systems a global discrepancy function is used, while for nonlinear sy
 The reach tubes computed for verification are stored in a textfile in the working directory.
 %
 
-You may want to look at some of the applications of C2E2 in verification of cyber-physical systems:
+You may want to look at some of the applications of $\ccee$ in verification of cyber-physical systems:
 Toyota's Powertrain control system~\citet{DuggiralaFM015},
 NASA landing alarm system~\citet{DuggiralaWMVM14}, 
 Complex transistor models~\citet{FanM0BM018},  model of cardiac pacemaker~\citet{HuangFMMK14,HuangFMMK15}, and autonomous spacecraft maneuvers~\citet{ChanM17}.
@@ -881,48 +900,53 @@ The requirements (properties) that were used to create the source data file can 
 % However, you can edit the \texttt{.hyxml} file using a text editor to change the model and the properties.
 % The reach sets computed during verification are stored in the working directory \texttt{/work-dir/} but currently they cannot be loaded.
 
-% \chapter{Using Command Line Version $\ccee$}
+\chapter{Command-Line Interface}
 
-% In this chapter, we give a quick introduction on running $\ccee$ using command line. We will use an example in the example folder.
+$\ccee$ allows a limited number of its functions to be used fromm the command-line without launching the GUI. In brief, it allows an existing $\hyxml$ model to be simulated and verified, and the results to be stored in appropriate files. The GUI has to be used for model editing and plotting. 
 
-% In the $\ccee$ folder, type command ./run$\ccee$command to launch the command version $\ccee$ and you should able to see the model list (as in Figure~\ref{figure:terminalmain}). Command line version of $\ccee$ can only read models in the \texttt{Examples} folder. If you have customized models, please place it in the \texttt{Examples} folder as well. 
+
+In the $\ccee$ folder, type command ./runC2E2command to launch the command-line version of $\ccee$ and you should able to see the model list (as in Figure~\ref{figure:terminalmain}). Command line version of $\ccee$ can only read models in the \texttt{Examples} folder. If you have customized models, please place them in the \texttt{Examples} folder as well. 
+ \begin{marginfigure}
+  \centerline{\includegraphics[scale=.15,keepaspectratio=true]{Manual_ver0_2_image/terminal_main.png}}
+  \caption{Command line version $\ccee$ interface} 
+   \label{figure:terminalmain}
+ \end{marginfigure}
+
 % \newline
 
-% Once you load a file, $\ccee$ will start to compile simulator, and it will ask you to identify if it is a linear model or nonlinear model (see Figure~\ref{figure:terminallinear}). Type Y or N to answer, then the model will be successfully loaded.
+ Once you load a file, $\ccee$ will start to compile the simulator, and it will ask you to identify if it is a linear model or nonlinear model (see Figure~\ref{figure:terminallinear}). Type Y or N to answer, then the model will be successfully loaded.
+  \begin{marginfigure}
+  \centerline{\includegraphics[scale=.15,keepaspectratio=true]{Manual_ver0_2_image/terminal_linear.png}}
+  \caption{Type Y or N to tell $\ccee$ if the model is linear.} 
+   \label{figure:terminallinear}
+ \end{marginfigure}
 
-% Once the model is loaded, there will be various of commands you can use. Type \texttt{help} command to check the all the commands (see Figure~\ref{figure:terminalhelp}). These commands are similar to the functionality we have described in Section \ref{sec:open}. To check the properties that come with the \texttt{.hyxml} file, type \texttt{printprop} command. This command will expand all the built in properties as shown in Figure~\ref{figure:terminalprop}.By typing the \texttt{verify} command, you can verify all the properties in the property list. Results will be shown once the verification ends as in Figure~\ref{figure:terminalverify}.
+Once the model is loaded, there will be various of commands you can use. Type \texttt{help} command to check the all the commands (see Figure~\ref{figure:terminalhelp}). These commands are similar to the functionality we have described in Section \ref{sec:open}. To check the properties that come with the \texttt{.hyxml} file, type \texttt{printprop} command. This command will expand all the built in properties as shown.By typing the \texttt{verify} command, you can verify all the properties in the property list. Results will be shown once the verification ends as in Figure~\ref{figure:terminalverify}.
+ \begin{marginfigure}
+  \centerline{\includegraphics[scale=.25,keepaspectratio=true]{Manual_ver0_2_image/terminal_help.png}}
+  \caption{All command-line options.} 
+   \label{figure:terminalhelp}
+ \end{marginfigure}
 
 % When you are finishing with the command line version $\ccee$, you can type \texttt{quit} command to exit.
 
-% \begin{figure}
-%  \centerline{\includegraphics[scale=.25,keepaspectratio=true]{Manual_ver0_2_image/terminal_main.png}}
-%  \caption{Command line version $\ccee$ interface} 
-%   \label{figure:terminalmain}
-% \end{figure}
 
-% \begin{figure}
-%  \centerline{\includegraphics[scale=.25,keepaspectratio=true]{Manual_ver0_2_image/terminal_linear.png}}
-%  \caption{Type Y or N to tell $\ccee$ if the model is linear} 
-%   \label{figure:terminallinear}
-% \end{figure}
 
-% \begin{figure}
-%  \centerline{\includegraphics[scale=.25,keepaspectratio=true]{Manual_ver0_2_image/terminal_help.png}}
-%  \caption{All command options} 
-%   \label{figure:terminalhelp}
-% \end{figure}
+
+
+
 
 % \begin{figure}
 %  \centerline{\includegraphics[scale=.25,keepaspectratio=true]{Manual_ver0_2_image/terminal_prop.png}}
-%  \caption{Expand properties come with the model \texttt{.hyxml} file} 
+%  \caption{Expand properties come with the model \texttt{.hyxml} file.} 
 %   \label{figure:terminalprop}
 % \end{figure}
 
-% \begin{figure}
-%  \centerline{\includegraphics[scale=.25,keepaspectratio=true]{Manual_ver0_2_image/terminal_verify.png}}
-%  \caption{Verify the properties in the property list} 
-%   \label{figure:terminalverify}
-% \end{figure}
+ \begin{marginfigure}
+  \centerline{\includegraphics[scale=.25,keepaspectratio=true]{Manual_ver0_2_image/terminal_verify.png}}
+  \caption{Verify the properties in the property list.} 
+   \label{figure:terminalverify}
+ \end{marginfigure}
 
 \chapter{Building models for $\ccee$}
 \label{sec:plots}
